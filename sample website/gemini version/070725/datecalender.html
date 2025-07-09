@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Buddy Lending Library | Empowering Minds</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        /* Your existing CSS styles here */
+        body {
+            font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Verdana', sans-serif;
+            background-color: #FDFBF5; /* A very light warm cream */
+            color: #333; /* Darker text for better contrast */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+            background-color: white; /* Ensure chart background is clean */
+            padding: 1.5rem; /* Increased padding */
+            border-radius: 1rem; /* rounded-xl */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            display: block;
+            margin-top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #14B8A6; /* Teal-500 */
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .app-section {
+            padding-top: 5rem; /* Increased padding */
+            padding-bottom: 5rem; /* Increased padding */
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .button-hover-effect {
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .button-hover-effect:hover {
+            transform: translateY(-2px);
+        }
+        /* Styles for the calendar within the hero section */
+        .hero-calendar {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 1.5rem; /* rounded-3xl */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl */
+            padding: 2rem; /* Increased padding */
+            border: 1px solid #D1FAE5; /* teal-100 */
+            max-width: 420px; /* Increased max-width for better spacing */
+            width: 100%;
+            margin-top: 2rem; /* Space below text on small screens */
+            position: relative;
+            z-index: 20;
+        }
+        @media (min-width: 1024px) { /* lg screens */
+            .hero-content-area {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                text-align: left;
+                gap: 3rem; /* Added gap between text and calendar */
+            }
+            .hero-text-content {
+                max-width: 60%; /* Adjust width for text */
+            }
+            .hero-calendar {
+                margin-top: 0;
+                margin-left: 0; /* Remove specific margin as gap handles it */
+            }
+        }
+
+        .event-day-dot {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            height: 8px;
+            width: 8px;
+            background-color: #EF4444; /* Red-500 */
+            border-radius: 50%;
+            border: 1px solid white;
+        }
+
+        /* Equal Sizing for Core Offerings and Adult Learning sections */
+        .equal-height-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Adjustments for general section spacing */
+        .container {
+            max-width: 1200px; /* Max width for content container */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        h2 {
+            margin-bottom: 1.5rem; /* More space below main headings */
+        }
+        p {
+            line-height: 1.7; /* Improve readability of paragraphs */
+        }
+
+        /* New CSS for calendar interactivity */
+        .calendar-day {
+            padding: 0.5rem;
+            background-color: #f0fdf4; /* Light green for days */
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            position: relative; /* For the event dot */
+            min-height: 48px; /* Ensure consistent height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .calendar-day:hover {
+            background-color: #dcfce7; /* Lighter green on hover */
+            transform: translateY(-2px);
+        }
+
+        .calendar-day.inactive {
+            background-color: #fefefe; /* Very light background for inactive days */
+            color: #ccc;
+            cursor: default;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .calendar-day.has-event {
+            border: 1px solid #14B8A6; /* Teal border for event days */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="text-stone-800">
+
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-bold text-3xl text-stone-900 nav-link-home">
+                📚 Book Buddy
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#" data-target="home-section" class="nav-link text-stone-600 hover:text-teal-600 active">Home</a>
+                <a href="#" data-target="about-section" class="nav-link text-stone-600 hover:text-teal-600">About Us</a>
+                <a href="#" data-target="school-work-section" class="nav-link text-stone-600 hover:text-teal-600">School Work</a>
+                <a href="#" data-target="beyond-school-section" class="nav-link text-stone-600 hover:text-teal-600">Beyond School</a>
+                <a href="#" data-target="monthly-magazine-section" class="nav-link text-stone-600 hover:text-teal-600">Monthly Magazine</a>
+                <a href="#" data-target="blogs-section" class="nav-link text-stone-600 hover:text-teal-600">Blogs</a>
+                <a href="#" data-target="gallery-section" class="nav-link text-stone-600 hover:text-teal-600">Photo Gallery</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                     <button class="hidden md:block bg-teal-600 text-white px-5 py-2.5 rounded-full hover:bg-teal-700 transition-colors font-semibold button-hover-effect">Sign Up / Log In</button>
+                     <button class="md:hidden" id="mobile-menu-button">
+                        <svg class="w-7 h-7 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                     </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2 bg-white shadow-inner">
+            <a href="#" data-target="home-section" class="block nav-link text-stone-600 hover:text-teal-600 py-2">Home</a>
+            <a href="#" data-target="about-section" class="block nav-link text-stone-600 hover:text-teal-600 py-2">About Us</a>
+            <a href="#" data-target="school-work-section" class="block nav-link text-stone-600 hover:text-teal-600 py-2">School Work</a>
+            <a href="#" data-target="beyond-school-section" class="block nav-link text-stone-600 hover:text-teal-600 py-2">Beyond School</a>
+            <a href="#" data-target="monthly-magazine-section" class="block nav-link text-stone-600 hover:text-teal-600 py-2">Monthly Magazine</a>
+            <a href="#" data-target="blogs-section" class="block nav-link text-stone-600 hover:text-teal-600 py-2">Blogs</a>
+            <button class="w-full bg-teal-600 text-white px-4 py-2 mt-2 rounded-full hover:bg-teal-700 transition-colors button-hover-effect">Sign Up / Log In</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="home-section" class="app-section">
+            <div class="relative min-h-[70vh] lg:min-h-[85vh] flex items-center justify-center text-center overflow-hidden py-16">
+                <div class="absolute inset-0 bg-gradient-to-br from-teal-50 to-white opacity-90"></div>
+                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10" style="background-image: url('https://placehold.co/1200x800/A7F3D0/333333?text=Cozy+Learning+Space');"></div>
+                <div class="container mx-auto px-6 relative z-10 hero-content-area flex flex-col lg:flex-row items-center justify-center lg:justify-between">
+                    <div class="hero-text-content lg:text-left text-center max-w-2xl lg:max-w-3xl lg:mr-8">
+                        <h1 class="text-4xl md:text-6xl font-extrabold text-stone-900 leading-tight drop-shadow-sm">Empowering Minds, Fostering Curiosity.</h1>
+                        <p class="mt-4 text-lg md:text-xl text-stone-700 max-w-3xl mx-auto lg:mx-0">We offer a cozy learning space and an accessible online hub for **holistic** after-school support, fostering dynamic skill development and a lifelong love for learning.</p>
+                        <button class="mt-10 bg-teal-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-teal-700 transition-transform button-hover-effect shadow-lg">Explore Our Programs Today</button>
+                    </div>
+
+                    <div class="hero-calendar text-center">
+                        <h4 class="text-2xl font-bold mb-4 text-stone-900">Book Buddy Calendar</h4>
+                        <p class="text-stone-600 text-sm mb-4">Click a date to see events!</p>
+                        <div class="flex justify-between items-center mb-6">
+                            <button id="prevMonth" class="bg-teal-600 text-white px-3 py-1.5 rounded-lg hover:bg-teal-700 button-hover-effect text-sm">Prev</button>
+                            <h3 id="currentMonthYear" class="text-xl font-bold text-stone-900"></h3>
+                            <button id="nextMonth" class="bg-teal-600 text-white px-3 py-1.5 rounded-lg hover:bg-teal-700 button-hover-effect text-sm">Next</button>
+                        </div>
+                        <div class="grid grid-cols-7 gap-1 text-stone-700 font-semibold text-xs mb-3">
+                            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                        </div>
+                        <div id="calendarGrid" class="grid grid-cols-7 gap-1">
+                            </div>
+                        <div id="eventDetails" class="mt-6 p-3 bg-white rounded-lg border border-teal-200 text-left hidden text-sm">
+                            <h5 class="text-lg font-bold text-stone-900 mb-1">Events for <span id="selectedDate"></span>:</h5>
+                            <ul id="eventList" class="list-disc list-inside text-stone-700">
+                                </ul>
+                            <a href="#beyond-school-section" class="block text-teal-600 font-semibold text-sm mt-3 hover:underline">View All Upcoming Events & Opportunities →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-20 bg-white">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-stone-900">Welcome to Book Buddy Lending Library</h2>
+                    <p class="max-w-4xl mx-auto text-lg text-stone-600 leading-relaxed">For over 2.6 years, Book Buddy was a cherished cozy library space, offering exceptional after-school support and enriching skill development. Now fully online, we're dedicated to delivering an empowering and accessible learning experience to every child and adult, right at their fingertips.</p>
+                    <button data-target="about-section" class="mt-8 text-teal-600 font-semibold text-lg hover:text-teal-800 transition-colors">Learn More About Our Journey →</button>
+                </div>
+            </div>
+
+            <div class="py-20 bg-teal-50">
+                <div class="container mx-auto px-6">
+                    <div class="grid lg:grid-cols-2 gap-16 items-start">
+                        <div class="equal-height-section">
+                            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-stone-900">Our Core Offerings</h2>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div class="bg-white p-8 rounded-2xl shadow-xl card-hover-effect border border-teal-100 flex flex-col items-center text-center">
+                                    <div class="text-5xl mb-5 text-teal-600">🎓</div>
+                                    <h3 class="text-2xl font-bold mb-3 text-stone-900">Academic Support & Worksheets</h3>
+                                    <p class="text-stone-600 mb-6 leading-relaxed">Vast library of engaging worksheets, interactive quizzes, and targeted practice materials to bolster performance.</p>
+                                    <button data-target="school-work-section" class="mt-auto font-semibold text-teal-600 hover:text-teal-800 transition-colors">Go to School Work →</button>
+                                </div>
+                                <div class="bg-white p-8 rounded-2xl shadow-xl card-hover-effect border border-teal-100 flex flex-col items-center text-center">
+                                    <div class="text-5xl mb-5 text-teal-600">🚀</div>
+                                    <h3 class="text-2xl font-bold mb-3 text-stone-900">Skill Development & Enrichment</h3>
+                                    <p class="text-stone-600 mb-6 leading-relaxed">Engaging storytelling podcasts, enhanced reading & math skills, plus specialized prep for competitive exams like GRE & IELTS.</p>
+                                    <button data-target="beyond-school-section" class="mt-auto font-semibold text-teal-600 hover:text-teal-800 transition-colors">Explore Beyond School →</button>
+                                </div>
+                                <div class="bg-white p-8 rounded-2xl shadow-xl card-hover-effect border border-teal-100 flex flex-col items-center text-center col-span-full md:col-span-1 md:col-start-2">
+                                    <div class="text-5xl mb-5 text-teal-600">✍️</div>
+                                    <h3 class="text-2xl font-bold mb-3 text-stone-900">Share & Discover Knowledge</h3>
+                                    <p class="text-stone-600 mb-6 leading-relaxed">Explore insightful articles written by both young learners and seasoned adults. Our blog is a vibrant platform for knowledge sharing.</p>
+                                    <button data-target="blogs-section" class="mt-auto font-semibold text-teal-600 hover:text-teal-800 transition-colors">Read Our Blogs →</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="equal-height-section">
+                            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-stone-900">Empowering Adults: Professional Development</h2>
+                            <p class="max-w-xl mx-auto text-lg text-stone-600 leading-relaxed mb-12 text-center">Advance your career and expand your expertise with our specialized resources tailored for adult professionals. Explore key topics designed to boost your skills and knowledge.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div class="bg-white p-6 rounded-xl shadow-lg text-center card-hover-effect border border-teal-100">
+                                    <div class="text-5xl mb-4">💻</div>
+                                    <h3 class="text-xl font-bold mb-2 text-stone-900">Coding Fundamentals</h3>
+                                    <p class="text-stone-500 mb-4">Interactive lessons and exercises for beginners in programming.</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-xl shadow-lg text-center card-hover-effect border border-teal-100">
+                                    <div class="text-5xl mb-4">📊</div>
+                                    <h3 class="text-xl font-bold mb-2 text-stone-900">Business Analysis</h3>
+                                    <p class="text-stone-500 mb-4">Case studies and frameworks for effective business analysis.</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-xl shadow-lg text-center card-hover-effect border border-teal-100">
+                                    <div class="text-5xl mb-4">💰</div>
+                                    <h3 class="text-xl font-bold mb-2 text-stone-900">Banking Essentials</h3>
+                                    <p class="text-stone-500 mb-4">Understand core banking concepts and financial markets.</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-xl shadow-lg text-center card-hover-effect border border-teal-100">
+                                    <div class="text-5xl mb-4">🎓</div>
+                                    <h3 class="text-xl font-bold mb-2 text-stone-900">Exam Preparation</h3>
+                                    <p class="text-stone-500 mb-4">Specialized modules for competitive exams like GRE and IELTS.</p>
+                                </div>
+                            </div>
+                            <button data-target="professional-development-section" class="mt-12 bg-teal-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-teal-700 transition-transform button-hover-effect shadow-lg self-center">Explore All Adult Learning →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-20 bg-white">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-stone-900">Book Buddy Monthly Magazine</h2>
+                    <p class="max-w-4xl mx-auto text-lg text-stone-600 leading-relaxed">Dive into our exclusive monthly magazine, a curated collection of articles, stories, artwork, and interactive challenges contributed by our vibrant community of kids, adults, parents, and mentors. Each issue is packed with fresh insights and engaging content!</p>
+                    <button data-target="monthly-magazine-section" class="mt-8 bg-teal-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-teal-700 transition-transform button-hover-effect shadow-lg">Explore Latest Issue & Archives</button>
+                </div>
+            </div>
+
+            <div class="py-20 bg-teal-50">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-stone-900">Podcast Insights: Stories That Resonate</h2>
+                    <p class="max-w-4xl mx-auto text-lg text-stone-600 leading-relaxed mb-12">Discover what's trending, explore our most popular episodes, and see how our listener community is growing!</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                        <div class="bg-white rounded-xl shadow-lg p-6 border border-teal-100 card-hover-effect flex flex-col items-center text-center md:flex-row md:text-left">
+                            <img src="https://placehold.co/120x120/A7F3D0/333333?text=Trending+Pod" alt="Trending Podcast Cover" class="w-28 h-28 rounded-lg mb-4 md:mb-0 md:mr-6 object-cover flex-shrink-0">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-stone-900 mb-2">🔥 Trending Now: The Mystery of the Missing Book</h3>
+                                <p class="text-stone-700 mb-3 text-base">Our most listened-to episode this week! Join detectives Lily and Tom as they solve a curious case in the old library.</p>
+                                <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-2 sm:space-y-0 sm:space-x-4">
+                                    <button class="bg-teal-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-700 transition-transform button-hover-effect flex items-center space-x-2 text-sm">
+                                        <span class="text-lg">▶️</span>
+                                        <span>Play Episode</span>
+                                    </button>
+                                    <span class="text-stone-500 text-sm">📈 15K+ Plays this month!</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-6 border border-teal-100 flex flex-col justify-center items-center">
+                            <h3 class="text-xl font-semibold text-stone-900 mb-4">Listeners Growth Over Time</h3>
+                            <img src="https://placehold.co/400x200/6EE7B7/333333?text=Chart:+Listeners+Growth" alt="Listeners Growth Chart Placeholder" class="w-full max-w-xs md:max-w-none rounded-lg border border-teal-200">
+                            <p class="text-stone-500 text-sm mt-3">Visualizing our growing community of audio story lovers!</p>
+                        </div>
+                    </div>
+                    <button data-target="beyond-school-section" class="mt-12 text-teal-600 font-semibold text-lg hover:text-teal-800 transition-colors">Explore All Podcasts & Analytics →</button>
+                </div>
+            </div>
+
+
+            <div class="py-20 bg-white">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-14 text-stone-900">Don't Miss Out: Upcoming Events & Opportunities!</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 text-center">
+                        <div class="bg-teal-50 p-8 rounded-2xl shadow-xl card-hover-effect border border-teal-100">
+                            <div class="text-5xl mb-5 text-teal-600">🗓️</div>
+                            <h3 class="text-2xl font-bold mb-3 text-stone-900">Interactive Story Session: "The Moonlit Mystery"</h3>
+                            <p class="text-stone-600 mb-4 leading-relaxed">Join our expert storyteller for a magical journey! Engage, ask questions, and discover new worlds live online.</p>
+                            <p class="text-lg font-semibold text-teal-700 mb-6">Date: July 20, 2025 | Time: 4:00 PM IST</p>
+                            <button data-target="beyond-school-section" class="bg-teal-600 text-white px-7 py-3 rounded-full font-semibold hover:bg-teal-700 button-hover-effect shadow-md">Register Now</button>
+                        </div>
+
+                        <div class="bg-teal-50 p-8 rounded-2xl shadow-xl card-hover-effect border border-teal-100">
+                            <div class="text-5xl mb-5 text-teal-600">🏆</div>
+                            <h3 class="text-2xl font-bold mb-3 text-stone-900">Annual Creative Writing Challenge</h3>
+                            <p class="text-stone-600 mb-4 leading-relaxed">Unleash your imagination! Submit your original stories and poems for a chance to win exciting prizes.</p>
+                            <p class="text-lg font-semibold text-red-600 mb-2">Submission Deadline: July 25, 2025</p>
+                            <p class="text-sm text-stone-500 mb-6">Last year: 150+ participants! Winners announced Aug 5.</p>
+                            <button class="bg-teal-600 text-white px-7 py-3 rounded-full font-semibold hover:bg-teal-700 button-hover-effect shadow-md">Submit Your Entry</button>
+                        </div>
+
+                        <div class="bg-teal-50 p-8 rounded-2xl shadow-xl card-hover-effect border border-teal-100">
+                            <div class="text-5xl mb-5 text-teal-600">✍️</div>
+                            <h3 class="text-2xl font-bold mb-3 text-stone-900">Contribute to Next Month's Magazine!</h3>
+                            <p class="text-stone-600 mb-4 leading-relaxed">Share your articles, art, or puzzles for the August issue. Your voice matters!</p>
+                            <p class="text-lg font-semibold text-red-600 mb-6">Article Submission Deadline: July 28, 2025</p>
+                            <button data-target="monthly-magazine-section" class="bg-teal-600 text-white px-7 py-3 rounded-full font-semibold hover:bg-teal-700 button-hover-effect shadow-md">Learn More & Submit</button>
+                        </div>
+                    </div>
+                    <div class="text-center mt-12">
+                             <button data-target="beyond-school-section" class="mt-8 text-teal-600 font-semibold text-lg hover:text-teal-800 transition-colors">View All Opportunities & Past Winners →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-20 bg-teal-50">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-stone-900">Book Buddy By The Numbers</h2>
+                    <p class="max-w-4xl mx-auto text-lg text-stone-600 leading-relaxed mb-12">See the impact of our thriving community! These live insights showcase our growth, engagement, and most popular areas.</p>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+                        <div class="bg-white p-8 rounded-2xl shadow-lg card-hover-effect border border-teal-100">
+                            <h3 class="text-2xl font-semibold text-stone-900 mb-4">Active Learners Daily</h3>
+                            <img src="https://placehold.co/400x250/A7F3D0/333333?text=Active+Users+Graph" alt="Active Users Graph" class="w-full h-auto rounded-lg mb-4">
+                            <p class="text-4xl font-bold text-teal-700">8,500+</p>
+                            <p class="text-stone-600 mt-2">Engaging with content right now!</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl shadow-lg card-hover-effect border border-teal-100">
+                            <h3 class="text-2xl font-semibold text-stone-900 mb-4">Content Engagement Rate</h3>
+                            <img src="https://placehold.co/400x250/6EE7B7/333333?text=Engagement+Chart" alt="Engagement Chart" class="w-full h-auto rounded-lg mb-4">
+                            <p class="text-4xl font-bold text-teal-700">92%</p>
+                            <p class="text-stone-600 mt-2">Users interact with our learning materials.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl shadow-lg card-hover-effect border border-teal-100">
+                            <h3 class="text-2xl font-semibold text-stone-900 mb-4">Most Visited Area</h3>
+                            <img src="https://placehold.co/400x250/34D399/333333?text=Popular+Section+Pie" alt="Popular Section Pie Chart" class="w-full h-auto rounded-lg mb-4">
+                            <p class="text-4xl font-bold text-teal-700">School Work</p>
+                            <p class="text-stone-600 mt-2">Our academic resources are a huge hit!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-20 bg-white">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-stone-900">Hear From Our Community</h2>
+                    <p class="max-w-4xl mx-auto text-lg text-stone-600 leading-relaxed">Don't just take our word for it! Read what our students, parents, and mentors have to say about their Book Buddy experience and how we've empowered their learning journey.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mt-12 max-w-4xl mx-auto">
+                        <div class="bg-teal-50 p-6 rounded-xl shadow-lg border border-teal-100">
+                            <p class="text-stone-700 italic mb-4">"Book Buddy transformed my son's approach to math. He used to dread it, now he's excited for challenges!"</p>
+                            <p class="font-semibold text-stone-900">- Maria P., Parent</p>
+                        </div>
+                        <div class="bg-teal-50 p-6 rounded-xl shadow-lg border border-teal-100">
+                            <p class="text-stone-700 italic mb-4">"The storytelling podcasts are my favorite! I learn so much and it's so much fun."</p>
+                            <p class="font-semibold text-stone-900">- Anya S., Student (Age 9)</p>
+                        </div>
+                    </div>
+                    <button data-target="about-section" class="mt-8 text-teal-600 font-semibold text-lg hover:text-teal-800 transition-colors">Read All Success Stories →</button>
+                </div>
+            </div>
+
+            <div class="py-20 bg-teal-50">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-14 text-stone-900">Our Cherished Moments</h2>
+                    <p class="max-w-4xl mx-auto text-lg text-stone-600 text-center mb-12">Step into our visual diary! This gallery showcases the vibrant life at Book Buddy, from engaging workshops and lively story sessions to memorable community events. See the joy of learning come alive.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <img src="https://placehold.co/400x400/D1FAE5/333333?text=Story+Time" alt="Story Time" class="rounded-xl shadow-lg w-full h-full object-cover card-hover-effect">
+                        <img src="https://placehold.co/400x400/A7F3D0/333333?text=Learning" alt="Learning Fun" class="rounded-xl shadow-lg w-full h-full object-cover card-hover-effect">
+                        <img src="https://placehold.co/400x400/6EE7B7/333333?text=Activity" alt="Creative Activity" class="rounded-xl shadow-lg w-full h-full object-cover card-hover-effect">
+                        <img src="https://placehold.co/400x400/34D399/333333?text=Community" alt="Community Event" class="rounded-xl shadow-lg w-full h-full object-cover card-hover-effect">
+                    </div>
+                    <div class="text-center mt-12">
+                        <button data-target="gallery-section" class="font-semibold text-teal-600 text-lg hover:text-teal-800 transition-colors">View Full Gallery →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-section" class="app-section hidden py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-4 text-stone-900">Our Story: Empowering Learners Since Day One</h2>
+                <p class="text-center text-stone-600 text-lg max-w-4xl mx-auto mb-12 leading-relaxed">This section provides a deeper look into the history, mission, and vision that drive Book Buddy. Discover the passionate individuals behind our initiatives, understand our core values, and trace the journey that transformed us from a beloved local library into a vibrant, accessible online learning community.</p>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <img src="https://placehold.co/600x400/A7F3D0/333333?text=Our+Dedicated+Team" alt="Our Team" class="rounded-xl shadow-lg">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3 text-stone-900">Our Mission & Vision</h3>
+                        <p class="text-stone-600 mb-4 leading-relaxed">Our unwavering mission is to provide accessible, high-quality educational support that empowers every student to unlock and achieve their full potential. We envision a future where every child possesses the confidence, critical thinking skills, and **lifelong curiosity** to thrive in an ever-evolving world.</p>
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="school-work-section" class="app-section hidden py-20 bg-teal-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-stone-900">School Work Support</h2>
+                <p class="text-lg text-stone-700 mt-4">Details about our academic worksheets, quizzes, and subject-specific help.</p>
+            </div>
+        </section>
+
+        <section id="beyond-school-section" class="app-section hidden py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-stone-900">Beyond School: Skill Development</h2>
+                <p class="text-lg text-stone-700 mt-4">Information on podcasts, reading comprehension, math skills, and competitive exam prep.</p>
+            </div>
+        </section>
+
+        <section id="monthly-magazine-section" class="app-section hidden py-20 bg-teal-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-stone-900">Monthly Magazine</h2>
+                <p class="text-lg text-stone-700 mt-4">Discover the latest issue and browse our archives.</p>
+            </div>
+        </section>
+
+        <section id="blogs-section" class="app-section hidden py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-stone-900">Our Blogs</h2>
+                <p class="text-lg text-stone-700 mt-4">Engaging articles from our community members.</p>
+            </div>
+        </section>
+
+        <section id="gallery-section" class="app-section hidden py-20 bg-teal-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-stone-900">Photo Gallery</h2>
+                <p class="text-lg text-stone-700 mt-4">Visual moments from our events and activities.</p>
+            </div>
+        </section>
+
+        <section id="professional-development-section" class="app-section hidden py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-stone-900">Adult Learning & Professional Development</h2>
+                <p class="text-lg text-stone-700 mt-4">Details on coding, business analysis, banking, and exam prep for adults.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-stone-900 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Book Buddy</h3>
+                    <p class="text-stone-400">Empowering Minds, Fostering Curiosity.</p>
+                    <p class="text-stone-400 text-sm mt-2">&copy; 2025 All rights reserved.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-stone-400 hover:text-teal-400 transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-stone-400 hover:text-teal-400 transition-colors">Programs</a></li>
+                        <li><a href="#" class="text-stone-400 hover:text-teal-400 transition-colors">Events</a></li>
+                        <li><a href="#" class="text-stone-400 hover:text-teal-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Connect With Us</h3>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-stone-400 hover:text-teal-400 transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 6h-3c-.276 0-.5.224-.5.5v1.5h3l-.5 3h-2.5v7h-3v-7h-2v-3h2v-2c0-1.654 1.346-3 3-3h3.5v3z"/></svg></a>
+                        <a href="#" class="text-stone-400 hover:text-teal-400 transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm5.403 7.822c.062 1.385-.456 3.738-2.612 5.894-2.155 2.155-4.509 2.674-5.894 2.612-1.385-.062-3.738-.58-5.894-2.612C2.923 15.006 2.404 12.652 2.404 12s.52-3.006 2.612-5.038c2.156-2.155 4.509-2.674 5.894-2.612 1.385.062 3.738.58 5.894 2.612 2.088 2.032 2.607 4.386 2.607 5.038 0 0 0 .003 0 .003zM12 16.5c-2.481 0-4.5-2.019-4.5-4.5s2.019-4.5 4.5-4.5 4.5 2.019 4.5 4.5-2.019 4.5-4.5 4.5zm0-7c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"/></svg></a>
+                        <a href="#" class="text-stone-400 hover:text-teal-400 transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 6c0-.828-.672-1.5-1.5-1.5h-4c-.828 0-1.5.672-1.5 1.5v7c0 .828.672 1.5 1.5 1.5h4c.828 0 1.5-.672 1.5-1.5V8zm-1.5 0h-4v7h4V8zM12 4.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-sm text-stone-500 mt-8">
+                <p>Designed with ❤️ for a brighter future.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[data-target], button[data-target]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+
+                // Hide all sections first
+                document.querySelectorAll('main section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+
+                // Show the target section
+                if (targetElement) {
+                    targetElement.classList.remove('hidden');
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                // Update active state for nav links
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                if (this.classList.contains('nav-link')) {
+                    this.classList.add('active');
+                } else {
+                    // If a button clicked, find the corresponding nav link and activate it
+                    const correspondingNavLink = document.querySelector(`.nav-link[data-target="${targetId}"]`);
+                    if (correspondingNavLink) {
+                        correspondingNavLink.classList.add('active');
+                    }
+                }
+                
+                // Hide mobile menu after selection if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+
+        // Calendar functionality
+        const calendarGrid = document.getElementById('calendarGrid');
+        const currentMonthYear = document.getElementById('currentMonthYear');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const eventDetails = document.getElementById('eventDetails');
+        const selectedDateSpan = document.getElementById('selectedDate');
+        const eventList = document.getElementById('eventList');
+
+        let currentDate = new Date(); // Start with current date
+
+        // Dummy Event Data (Replace with real data from backend/API)
+        // Format: 'YYYY-MM-DD': [{ title: 'Event Name', time: 'HH:MM AM/PM', description: '...' }]
+        const events = {
+            '2025-07-15': [{ title: 'Interactive Story Session', time: '3:00 PM', description: 'A magical storytelling session online.' }],
+            '2025-07-20': [{ title: 'Annual Creative Writing Challenge', time: 'All Day', description: 'Submit your original stories and poems.' }, {title: 'Math Fun Workshop', time: '2:00 PM', description: 'Problem-solving games for all ages.'}],
+            '2025-08-01': [{ title: 'New Magazine Issue Release', time: '9:00 AM', description: 'August issue is live with new articles!' }],
+            '2025-08-10': [{ title: 'Coding Basics Webinar', time: '10:00 AM', description: 'Introduction to Python for beginners.' }]
+        };
+
+        function renderCalendar() {
+            calendarGrid.innerHTML = ''; // Clear previous days
+            eventDetails.classList.add('hidden'); // Hide event details initially
+            eventList.innerHTML = ''; // Clear previous event list
+
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth(); // 0-indexed
+
+            currentMonthYear.textContent = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(currentDate);
+
+            // Get the first day of the month (0 = Sunday, 6 = Saturday)
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+            // Get the last day of the month
+            const lastDayOfMonth = new Date(year, month + 1, 0).getDate();
+
+            // Add empty divs for preceding days of the week
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.classList.add('calendar-day', 'inactive');
+                calendarGrid.appendChild(emptyDiv);
+            }
+
+            // Add days of the month
+            for (let day = 1; day <= lastDayOfMonth; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('calendar-day');
+                dayDiv.textContent = day;
+
+                // Format date for event lookup (YYYY-MM-DD)
+                const fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                
+                // Add event dot if there are events for this day
+                if (events[fullDate]) {
+                    dayDiv.classList.add('has-event');
+                    const dot = document.createElement('span');
+                    dot.classList.add('event-day-dot');
+                    dayDiv.appendChild(dot);
+                }
+
+                dayDiv.addEventListener('click', () => showEventsForDate(year, month, day));
+                calendarGrid.appendChild(dayDiv);
+            }
+        }
+
+        function showEventsForDate(year, month, day) {
+            const selectedDate = new Date(year, month, day);
+            selectedDateSpan.textContent = selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            eventList.innerHTML = ''; // Clear previous events
+
+            const fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const dailyEvents = events[fullDate];
+
+            if (dailyEvents && dailyEvents.length > 0) {
+                dailyEvents.forEach(event => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<strong class="text-stone-800">${event.title}</strong><br><span class="text-stone-600">${event.time}</span> - ${event.description}`;
+                    eventList.appendChild(listItem);
+                });
+            } else {
+                const listItem = document.createElement('li');
+                listItem.textContent = 'No events scheduled for this day.';
+                eventList.appendChild(listItem);
+            }
+            eventDetails.classList.remove('hidden'); // Show the event details box
+        }
+
+        // Navigation buttons
+        prevMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // Initial render of the calendar
+        renderCalendar();
+    </script>
+</body>
+</html>

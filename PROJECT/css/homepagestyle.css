@@ -1,0 +1,99 @@
+body {
+background-color: #e2e8e8; /* Teal-500 */
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+margin-left: 10%;
+margin-right: 10%;
+}
+h1
+{
+  text-align: center;
+}
+h2{text-align: center;}
+p{
+  text-align: center;
+}
+.logo
+{align-content: center;
+margin-right: auto;}
+.navbar{
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+list-style-type: none;
+align-content: center;
+font-size: 24px;
+text-align: center;
+padding-top: 15px;
+background-color: rgb(233, 247, 247);
+}
+.navbar a{
+  text-decoration: none;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.flex-container{
+  display: grid;
+  grid-template-columns: 5% auto 10%;
+  background-color: rgb(233, 247, 247);
+  border-radius: 3%;
+
+}
+.button{
+  background-color: maroon;
+ border-radius: 30px;
+ align-content: center;
+ text-align: center;
+ color: white;
+ font-size: 16px;
+}
+
+.gridfull 
+   {
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
+    gap: 20px;
+   }
+   .gridpart{
+    background-color: rgb(233, 247, 247);
+    border-radius: 15px;
+    justify-content: space-around;
+    align-items: center;
+   }
+   .cta{
+   background-color: maroon;
+ border-radius: 30px;
+ align-content: center;
+ text-align: center;
+ color: white;
+ margin-left: 35%;
+ margin-right: 35%;
+ padding: .5%;
+   }
+   .cta a{
+    text-decoration: none;
+    font-size: 18px;
+    color: aliceblue;
+   }
+   .calendar a{
+    text-decoration: none;
+    text-align: center;
+   }
+   .second-grid{
+    display: grid;
+    grid-template: 1fr 1fr;
+    gap:20px;
+   }
+   .gridpart2{
+    background-color: rgb(233, 247, 247);
+    border-radius: 15px;
+    justify-content: space-around;
+    align-items: center;
+   }
+   .division{
+    position: relative;
+    padding:50px;
+   }
+   .bottomflex{display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}

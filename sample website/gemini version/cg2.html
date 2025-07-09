@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Buddy Lending Library | Alternate Design</title>
+    
+    <!-- Chosen Palette: Warm Parchment & Soft Teal -->
+    <!-- Application Structure Plan: This single-page application (SPA) utilizes a persistent left-hand sidebar for primary navigation, with the main content dynamically updating on the right. The homepage acts as a central dashboard, offering a quick overview of new content and key activities across different sections. This structure was chosen to provide constant access to navigation, improving discoverability and user flow, especially for users who frequently switch between different content areas. On smaller screens, the sidebar collapses into a mobile-friendly hamburger menu. -->
+    <!-- Visualization & Content Choices: The homepage dashboard features concise summary cards for "School Work," "Beyond School," and "Blogs," offering immediate insights into new or highlighted content. The detailed content for each section (e.g., worksheets, podcasts, blog posts) is displayed in the main content area upon selection from the sidebar, maintaining a clean and focused view. The Chart.js bar chart for "Weekly Skills Practiced" is integrated within the "Beyond School" section, demonstrating how data visualization can be effectively presented within this sidebar-driven content structure. All visual elements adhere to the no-SVG rule. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF5; /* A very light warm cream */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .sidebar-link {
+            position: relative;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .sidebar-link.active {
+            background-color: #14B8A6; /* Teal-500 */
+            color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+        .sidebar-link:not(.active):hover {
+            background-color: #E0F2F7; /* Light blue-gray for hover */
+            color: #14B8A6; /* Teal-500 */
+        }
+        .app-section {
+            min-height: calc(100vh - 80px); /* Adjust based on header/footer height */
+        }
+    </style>
+</head>
+<body class="text-stone-800 flex flex-col min-h-screen">
+
+    <!-- Header for Mobile (only shows logo and hamburger) -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm md:hidden">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-bold text-2xl text-stone-900 nav-link-home">
+                📚 Book Buddy
+            </a>
+            <button id="mobile-sidebar-toggle" class="p-2 rounded-md text-stone-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 bg-white shadow-xl w-64 p-6 z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out md:static md:flex-shrink-0 md:h-auto md:min-h-screen">
+            <div class="hidden md:block font-bold text-3xl text-stone-900 mb-8">
+                📚 Book Buddy
+            </div>
+            <nav class="space-y-2">
+                <a href="#" data-target="home-section" class="sidebar-link flex items-center p-3 rounded-lg text-stone-700 font-medium active">
+                    <span class="mr-3">🏠</span> Home
+                </a>
+                <a href="#" data-target="about-section" class="sidebar-link flex items-center p-3 rounded-lg text-stone-700 font-medium">
+                    <span class="mr-3">ℹ️</span> About Us
+                </a>
+                <a href="#" data-target="school-work-section" class="sidebar-link flex items-center p-3 rounded-lg text-stone-700 font-medium">
+                    <span class="mr-3">📚</span> School Work
+                </a>
+                <a href="#" data-target="beyond-school-section" class="sidebar-link flex items-center p-3 rounded-lg text-stone-700 font-medium">
+                    <span class="mr-3">🚀</span> Beyond School
+                </a>
+                <a href="#" data-target="blogs-section" class="sidebar-link flex items-center p-3 rounded-lg text-stone-700 font-medium">
+                    <span class="mr-3">✍️</span> Blogs
+                </a>
+                <a href="#" data-target="gallery-section" class="sidebar-link flex items-center p-3 rounded-lg text-stone-700 font-medium">
+                    <span class="mr-3">📸</span> Photo Gallery
+                </a>
+            </nav>
+            <div class="mt-8 pt-4 border-t border-gray-200">
+                <button class="w-full bg-teal-600 text-white px-4 py-2 rounded-full hover:bg-teal-700 transition-colors font-semibold">Sign Up</button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-6 md:p-10 overflow-auto">
+            <!-- Home Section (Dashboard) -->
+            <section id="home-section" class="app-section">
+                <h1 class="text-4xl font-bold text-stone-900 mb-6">Welcome to Book Buddy!</h1>
+                <p class="text-stone-600 mb-10 max-w-2xl">Your personalized dashboard for academic support, skill development, and community engagement. Discover new resources, track your progress, and connect with fellow learners.</p>
+
+                <!-- Quick Stats/Highlights -->
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
+                        <span class="text-5xl">📖</span>
+                        <div>
+                            <div class="text-3xl font-bold text-teal-600">150+</div>
+                            <div class="text-stone-600">Worksheets Available</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
+                        <span class="text-5xl">🎧</span>
+                        <div>
+                            <div class="text-3xl font-bold text-teal-600">25+</div>
+                            <div class="text-stone-600">Story Podcasts</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
+                        <span class="text-5xl">🏆</span>
+                        <div>
+                            <div class="text-3xl font-bold text-teal-600">Next Comp.</div>
+                            <div class="text-stone-600">July 20th</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Content & Activities -->
+                <h2 class="text-3xl font-bold text-stone-900 mb-8">Latest & Greatest</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- New Worksheet -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-2">New: Algebra Basics Worksheet</h3>
+                        <p class="text-stone-600 text-sm mb-4">Grade 7 Math - Master the fundamentals of algebraic expressions.</p>
+                        <button data-target="school-work-section" class="text-teal-600 font-semibold hover:text-teal-800">View Worksheet →</button>
+                    </div>
+                    <!-- Featured Podcast -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-2">Featured: The Dragon's Secret</h3>
+                        <p class="text-stone-600 text-sm mb-4">A captivating new episode in our storytelling series.</p>
+                        <button data-target="beyond-school-section" class="text-teal-600 font-semibold hover:text-teal-800">Listen Now →</button>
+                    </div>
+                    <!-- Top Blog Post -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-2">Trending: 7 Ways to Boost Creativity</h3>
+                        <p class="text-stone-600 text-sm mb-4">An insightful article by one of our adult contributors.</p>
+                        <button data-target="blogs-section" class="text-teal-600 font-semibold hover:text-teal-800">Read Article →</button>
+                    </div>
+                    <!-- Collaboration Highlight -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg md:col-span-2 lg:col-span-1">
+                        <h3 class="text-xl font-bold mb-2">Partner with Book Buddy!</h3>
+                        <p class="text-stone-600 text-sm mb-4">We offer tailored story sessions and public speaking workshops for schools and communities.</p>
+                        <button class="bg-teal-100 text-teal-800 px-6 py-2 rounded-full font-semibold hover:bg-teal-200">Learn More</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Us Section -->
+            <section id="about-section" class="app-section hidden">
+                <h2 class="text-4xl font-bold text-stone-900 mb-6">Our Story</h2>
+                <p class="text-stone-600 mb-10 max-w-3xl">This section provides a deeper look into the history, mission, and vision of Book Buddy. Here, you can learn about our team, our values, and the journey that brought us from a cozy physical space to a vibrant online community dedicated to fostering a love for learning in everyone.</p>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <img src="https://placehold.co/600x400/A7F3D0/333333?text=Our+Team" alt="Our Team" class="rounded-xl shadow-lg">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">Mission & Vision</h3>
+                        <p class="text-stone-600 mb-4">Our mission is to provide accessible, high-quality educational support that empowers students to achieve their full potential. We envision a world where every child has the confidence and skills to pursue their dreams, supported by a community that champions curiosity and lifelong learning.</p>
+                        <p class="text-stone-600">From our humble beginnings 2.6 years ago, we have always put the student first. Moving online has allowed us to expand our reach and offer even more diverse programs, from academic help to creative workshops, all while maintaining the warm, personal touch of our original library.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- School Work Section -->
+            <section id="school-work-section" class="app-section hidden">
+                <h2 class="text-4xl font-bold text-stone-900 mb-6">School Work Hub</h2>
+                <p class="text-stone-600 mb-10 max-w-3xl">Welcome to the Academic Support center. This area is your go-to resource for curriculum-aligned materials designed to help students excel. You can browse worksheets by grade or subject, take interactive quizzes to test knowledge, and participate in academic challenges to compete with friends.</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="text-xl font-bold mb-2">Math Worksheets (Grade 5)</h3>
+                        <p class="text-stone-500 mb-4">Fractions, Decimals, Geometry</p>
+                        <button class="bg-teal-500 text-white px-4 py-2 rounded-full text-sm">Download</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="text-xl font-bold mb-2">Grammar Quiz (All Grades)</h3>
+                        <p class="text-stone-500 mb-4">Test your knowledge of nouns & verbs</p>
+                        <button class="bg-teal-500 text-white px-4 py-2 rounded-full text-sm">Start Quiz</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="text-xl font-bold mb-2">Science Challenge</h3>
+                        <p class="text-stone-500 mb-4">Compete in the weekly science trivia!</p>
+                        <button class="bg-teal-500 text-white px-4 py-2 rounded-full text-sm">Join Challenge</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Beyond School Section -->
+            <section id="beyond-school-section" class="app-section hidden">
+                <h2 class="text-4xl font-bold text-stone-900 mb-6">Beyond School</h2>
+                <p class="text-stone-600 mb-10 max-w-3xl">Learning doesn't stop when the school bell rings. This section is dedicated to enrichment and skill development. Listen to engaging podcasts, practice for standardized tests like the GRE and IELTS, or track your progress with our skill-building tools and fun challenges.</p>
+                <div class="grid md:grid-cols-2 gap-12">
+                     <div class="space-y-6">
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                            <h3 class="text-xl font-bold">Storytelling Podcasts</h3>
+                            <p class="text-stone-500">Listen to tales from around the world.</p>
+                        </div>
+                         <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                            <h3 class="text-xl font-bold">GRE/IELTS Vocabulary Practice</h3>
+                            <p class="text-stone-500">Master key terms with our flashcards.</p>
+                        </div>
+                     </div>
+                     <div>
+                        <h3 class="text-xl font-bold text-center mb-4">Weekly Skills Practiced</h3>
+                        <div class="chart-container">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                     </div>
+                </div>
+            </section>
+
+            <!-- Blogs Section -->
+            <section id="blogs-section" class="app-section hidden">
+                 <h2 class="text-4xl font-bold text-stone-900 mb-6">Our Community Blog</h2>
+                <p class="text-stone-600 mb-10 max-w-3xl">This is our knowledge-sharing space, written by and for the Book Buddy community. Explore articles on a wide range of topics from both young learners and adult experts. Feel inspired? You can also submit your own articles to be featured on our site.</p>
+                <div class="text-center mb-12">
+                     <button class="bg-teal-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-teal-700">Submit Your Article</button>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://placehold.co/600x400/FBCFE8/333333?text=Space+Exploration" class="w-full h-48 object-cover" alt="Space">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2">5 Amazing Facts About Space</h3>
+                            <p class="text-stone-600 text-sm mb-4">By a Student, Age 12</p>
+                            <a href="#" class="font-semibold text-teal-600">Read More →</a>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://placehold.co/600x400/BFDBFE/333333?text=Tips+for+Reading" class="w-full h-48 object-cover" alt="Reading">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2">How to Build a Reading Habit</h3>
+                            <p class="text-stone-600 text-sm mb-4">By a Parent Contributor</p>
+                            <a href="#" class="font-semibold text-teal-600">Read More →</a>
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://placehold.co/600x400/D9F99D/333333?text=Public+Speaking" class="w-full h-48 object-cover" alt="Public Speaking">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2">Tips for Public Speaking</h3>
+                            <p class="text-stone-600 text-sm mb-4">By a Book Buddy Mentor</p>
+                            <a href="#" class="font-semibold text-teal-600">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery Section -->
+            <section id="gallery-section" class="app-section hidden">
+                <h2 class="text-4xl font-bold text-stone-900 mb-6">Our Moments Gallery</h2>
+                <p class="text-stone-600 mb-10 max-w-3xl">Explore a collection of photos from our workshops, story sessions, and community events. This gallery captures the joy, collaboration, and discovery that happen at Book Buddy every day. You can filter by event type to find your favorite moments.</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <img src="https://placehold.co/400x400/D1FAE5/333333?text=Story+Time+1" alt="Story Time" class="rounded-lg shadow-md w-full h-full object-cover">
+                    <img src="https://placehold.co/400x400/A7F3D0/333333?text=Learning+Fun+1" alt="Learning Fun" class="rounded-lg shadow-md w-full h-full object-cover">
+                    <img src="https://placehold.co/400x400/6EE7B7/333333?text=Activity+1" alt="Creative Activity" class="rounded-lg shadow-md w-full h-full object-cover">
+                    <img src="https://placehold.co/400x400/34D399/333333?text=Community+1" alt="Community Event" class="rounded-lg shadow-md w-full h-full object-cover">
+                    <img src="https://placehold.co/400x400/A7F3D0/333333?text=Workshop+1" alt="Workshop" class="rounded-lg shadow-md w-full h-full object-cover">
+                    <img src="https://placehold.co/400x400/6EE7B7/333333?text=Speaking+1" alt="Public Speaking" class="rounded-lg shadow-md w-full h-full object-cover">
+                    <img src="https://placehold.co/400x400/34D399/333333?text=Group+Photo" alt="Group Photo" class="rounded-lg shadow-md w-full h-full object-cover">
+                    <img src="https://placehold.co/400x400/D1FAE5/333333?text=Celebration" alt="Celebration" class="rounded-lg shadow-md w-full h-full object-cover">
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-stone-800 text-white mt-auto">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-bold text-xl mb-4">📚 Book Buddy</h3>
+                    <p class="text-stone-400">Empowering minds, fostering curiosity.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" data-target="home-section" class="text-stone-400 hover:text-white">Home</a></li>
+                        <li><a href="#" data-target="about-section" class="text-stone-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" data-target="blogs-section" class="text-stone-400 hover:text-white">Blogs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Get In Touch</h3>
+                    <ul class="space-y-2 text-stone-400">
+                        <li>hello@bookbuddy.com</li>
+                        <li>(123) 456-7890</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="font-bold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-400 hover:text-white">FB</a>
+                        <a href="#" class="text-stone-400 hover:text-white">IN</a>
+                        <a href="#" class="text-stone-400 hover:text-white">TW</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-stone-700 pt-6 text-center text-stone-500 text-sm">
+                <p>&copy; 2024 Book Buddy Lending Library. All Rights Reserved.</p>
+                <p class="mt-1"><a href="#" class="hover:text-white">Privacy Policy</a> | <a href="#" class="hover:text-white">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.app-section');
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const homeLink = document.querySelector('.nav-link-home'); // For mobile header logo
+
+            function showSection(targetId) {
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+                sidebarLinks.forEach(link => {
+                    if (link.getAttribute('data-target') === targetId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                window.scrollTo(0, 0); // Scroll to top on section change
+                sidebar.classList.add('-translate-x-full'); // Hide sidebar on mobile after selection
+            }
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    showSection(targetId);
+                });
+            });
+
+            // Handle buttons that act like nav links (e.g., on homepage dashboard)
+            const buttonsWithTarget = document.querySelectorAll('button[data-target]');
+             buttonsWithTarget.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    showSection(targetId);
+                });
+            });
+
+            // Handle mobile header logo click
+            if(homeLink) {
+                 homeLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection('home-section');
+                 });
+            }
+
+            // Mobile sidebar toggle
+            if(mobileSidebarToggle) {
+                mobileSidebarToggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('-translate-x-full');
+                });
+            }
+
+            // Chart.js implementation
+            const skillsCtx = document.getElementById('skillsChart');
+            if (skillsCtx) {
+                new Chart(skillsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Reading Comprehension', 'Grammar', 'Problem Solving', 'Public Speaking', 'Creative Writing'],
+                        datasets: [{
+                            label: 'Hours Practiced This Week',
+                            data: [12, 19, 8, 5, 15],
+                            backgroundColor: [
+                                'rgba(20, 184, 166, 0.6)',
+                                'rgba(13, 148, 136, 0.6)',
+                                'rgba(15, 118, 110, 0.6)',
+                                'rgba(17, 94, 89, 0.6)',
+                                'rgba(19, 78, 74, 0.6)'
+                            ],
+                            borderColor: [
+                                'rgb(20, 184, 166)',
+                                'rgb(13, 148, 136)',
+                                'rgb(15, 118, 110)',
+                                'rgb(17, 94, 89)',
+                                'rgb(19, 78, 74)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${context.raw} hours`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            showSection('home-section'); // Ensure home section is shown on load
+        });
+    </script>
+</body>
+</html>
