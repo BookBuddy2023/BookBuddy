@@ -5,24 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Buddy Lending Library</title>
     <link rel="stylesheet" href="./css/homepagestyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-    <div class="flex-container">
+    <div class="header">
         <div class="logo">
             <a href="./index.html"><img src="./asset/images/bookbuddy logo.JPG" width="60px" height="60px"></a>
-            </div>
+        </div>     
         <nav>
             <div class="navbar">
-            <a href="./index.html"> <li>Home</li></a>
-            <a href="./pages/about.html"><li>About Us</li></a>
-            <a href="./pages/schoolwork.html"><li>School Work</li></a>
-            <a href="./pages/beyondschool.html"><li> Beyond School</li></a>
-            <a href="./pages/monthlymagazine.html"><li>Monthly Magazine</li></a>
-            <a href="./pages/blogs.html"><li>Blogs</li></a>
-            <a href="./pages/photogallery.html"><li>Photo Gallery</li></a>  
-        </div></nav> 
-        <div class="button">Sign Up/ Login</div> 
+                    <a href="./index.html"> <li>Home</li></a>
+                    <a href="./pages/about.html"><li>About Us</li></a>
+                    <a href="./pages/schoolwork.html"><li>School Work</li></a>
+                    <a href="./pages/beyondschool.html"><li> Beyond School</li></a>
+                    <a href="./pages/monthlymagazine.html"><li>Monthly Magazine</li></a>
+                    <a href="./pages/blogs.html"><li>Blogs</li></a>
+                    <a href="./pages/photogallery.html"><li>Photo Gallery</li></a>     
+            </div>
+        </nav> 
+            <div class="button">Sign Up/ Login
+            </div> 
     </div>
+    <div class ="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i>Menu</div>
+    <ul id="nav">
+                    <a href="./index.html"> <li>Home</li></a>
+                    <a href="./pages/about.html"><li>About Us</li></a>
+                    <a href="./pages/schoolwork.html"><li>School Work</li></a>
+                    <a href="./pages/beyondschool.html"><li> Beyond School</li></a>
+                    <a href="./pages/monthlymagazine.html"><li>Monthly Magazine</li></a>
+                    <a href="./pages/blogs.html"><li>Blogs</li></a>
+                    <a href="./pages/photogallery.html"><li>Photo Gallery</li></a>     
+    </ul>
+        <script>
+            function toggleMenu()
+            {document.getElementById('nav').classList.toggle('show')}
+        </script>
+        <section class="hero">
     <div class="hero-section">
         <div class="hero-section-content">
         <h1> Empowering Minds, Igniting Curiosity</h1>
@@ -39,6 +57,7 @@
     <div class="cta">
         <a href="./pages/about.html">Learn More About our Journey</a>
     </div></div>
+    </section>
     <div class="division">
     <h1>Our Core Offerings</h1>
     <div class= "gridfull">

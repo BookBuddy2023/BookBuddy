@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>media query</title>
+    <style>
+        .cards {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card {
+            border: 3px solid palevioletred;
+            border-radius: 1px;
+            padding: 20px;
+            /* min-width: 50px;
+            max-width: 80px; */
+        }
+        h2{
+            text-align: center;
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px)
+    {.cards{
+            flex-direction: column;
+        }
+            .card{
+                margin-bottom: 16px;
+                width: 75vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h2> Achievements</h2>
+    <div class="cards">
+        <div class="card">
+           State Level Winner science 
+           </div>
+        <div class="card">
+            top 10 cbse
+        </div>
+        <div class="card">
+            Friendly class
+        </div>
+    </div>
+</body>
+
+</html>
