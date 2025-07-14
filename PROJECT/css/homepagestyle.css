@@ -131,8 +131,6 @@ ul {
 @media screen and (max-width:600px) {
   body {
     background-color: aliceblue;
-    margin-left: 15%;
-    margin-right: 15%;
   }
 
   .header {
