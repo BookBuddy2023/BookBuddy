@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Buddy Lending Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .hero-section {
+            background: url('https://via.placeholder.com/1500x500/007bff/ffffff?text=Empower+Your+Future') no-repeat center center/cover;
+            color: white;
+            padding: 100px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .feature-card {
+            transition: transform 0.3s ease-in-out;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+        }
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="../PROJECT/asset/images/bookbuddy logo.JPG" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+                Book Buddy
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#courses">Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Programs
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Undergraduate</a></li>
+                            <li><a class="dropdown-item" href="#">Postgraduate</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Short Courses</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section d-flex align-items-center text-center">
+        <div class="container">
+            <h1 class="display-3 mb-3">Your Journey to Knowledge Starts Here</h1>
+            <p class="lead mb-4">Discover a wide range of courses and unlock your full potential.</p>
+            <a href="#courses" class="btn btn-warning btn-lg me-2">Explore Courses</a>
+            <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#enrollModal">
+                Enroll Now
+            </button>
+        </div>
+    </section>
+
+    <section id="features" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Why Choose Us?</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card feature-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-book-half fs-1 text-primary mb-3"></i>
+                            <h5 class="card-title">Diverse Courses</h5>
+                            <p class="card-text">From STEM to Arts, we have a course for every ambition.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card feature-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-person-workspace fs-1 text-success mb-3"></i>
+                            <h5 class="card-title">Expert Instructors</h5>
+                            <p class="card-text">Learn from industry leaders and passionate educators.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card feature-card h-100 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-laptop fs-1 text-info mb-3"></i>
+                            <h5 class="card-title">Flexible Learning</h5>
+                            <p class="card-text">Study at your own pace, anytime, anywhere with online resources.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Our Popular Courses</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://via.placeholder.com/400x250/007bff/ffffff?text=Web+Development" class="card-img-top" alt="Web Development Course">
+                        <div class="card-body">
+                            <h5 class="card-title">Full Stack Web Development</h5>
+                            <p class="card-text">Master HTML, CSS, JavaScript, React, Node.js, and databases.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">Beginner to Advanced</span>
+                                <a href="#" class="btn btn-sm btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Duration: 12 Weeks</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://via.placeholder.com/400x250/28a745/ffffff?text=Data+Science" class="card-img-top" alt="Data Science Course">
+                        <div class="card-body">
+                            <h5 class="card-title">Introduction to Data Science</h5>
+                            <p class="card-text">Explore Python, data analysis, machine learning fundamentals.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success">Intermediate</span>
+                                <a href="#" class="btn btn-sm btn-success">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Duration: 8 Weeks</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://via.placeholder.com/400x250/ffc107/333333?text=Graphic+Design" class="card-img-top" alt="Graphic Design Course">
+                        <div class="card-body">
+                            <h5 class="card-title">Creative Graphic Design Essentials</h5>
+                            <p class="card-text">Unleash your creativity with Adobe Photoshop, Illustrator, and InDesign.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-warning text-dark">Beginner</span>
+                                <a href="#" class="btn btn-sm btn-warning">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Duration: 10 Weeks</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary text-white py-5 text-center">
+        <div class="container">
+            <h2 class="mb-3">Ready to Start Your Learning Journey?</h2>
+            <p class="lead mb-4">Join thousands of satisfied students and achieve your academic goals.</p>
+            <a href="#" class="btn btn-light btn-lg">Apply Now</a>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Students Say</h2>
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="text-center">
+                            <img src="https://via.placeholder.com/80x80/6c757d/ffffff?text=JD" class="testimonial-img mb-3 shadow" alt="Student 1">
+                            <blockquote class="blockquote mb-0">
+                                <p class="mb-0">"EduConnect completely transformed my career! The instructors are top-notch and the course content is incredibly relevant."</p>
+                                <footer class="blockquote-footer text-dark mt-2">John Doe, <cite title="Source Title">Web Development Graduate</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="text-center">
+                            <img src="https://via.placeholder.com/80x80/6c757d/ffffff?text=AJ" class="testimonial-img mb-3 shadow" alt="Student 2">
+                            <blockquote class="blockquote mb-0">
+                                <p class="mb-0">"The flexible learning options allowed me to balance my studies with my full-time job. Highly recommend!"</p>
+                                <footer class="blockquote-footer text-dark mt-2">Alice Johnson, <cite title="Source Title">Data Science Student</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="text-center">
+                            <img src="https://via.placeholder.com/80x80/6c757d/ffffff?text=MS" class="testimonial-img mb-3 shadow" alt="Student 3">
+                            <blockquote class="blockquote mb-0">
+                                <p class="mb-0">"Fantastic support system and a vibrant learning community. I felt truly empowered throughout my graphic design course."</p>
+                                <footer class="blockquote-footer text-dark mt-2">Maria Sanchez, <cite title="Source Title">Graphic Design Enthusiast</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>EduConnect</h5>
+                    <p>Empowering minds through quality education.</p>
+                    <p class="mb-0"><i class="bi bi-geo-alt-fill me-2"></i>123 Learning Lane, Chennai, India</p>
+                    <p class="mb-0"><i class="bi bi-envelope-fill me-2"></i>info@educonnect.com</p>
+                    <p><i class="bi bi-telephone-fill me-2"></i>+91 98765 43210</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="#courses" class="text-white text-decoration-none">Courses</a></li>
+                        <li><a href="#about" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="#contact" class="text-white text-decoration-none">Contact Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Follow Us</h5>
+                    <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-4"></i></a>
+                    <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-4"></i></a>
+                    <a href="#" class="text-white me-3"><i class="bi bi-linkedin fs-4"></i></a>
+                    <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-4"></i></a>
+                </div>
+            </div>
+            <hr class="border-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 EduConnect. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="enrollModal" tabindex="-1" aria-labelledby="enrollModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="enrollModalLabel">Enroll Now</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="courseInterest" class="form-label">Course of Interest</label>
+                            <select class="form-select" id="courseInterest">
+                                <option selected disabled>Choose...</option>
+                                <option>Full Stack Web Development</option>
+                                <option>Introduction to Data Science</option>
+                                <option>Creative Graphic Design Essentials</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                            <label class="form-check-label" for="termsCheck">I agree to the <a href="#" class="text-primary text-decoration-none">terms and conditions</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlco9j7sKjSt2Smsxhlm8D5ghGTyk7y3gHjKMh2k5h8f8I" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</body>
+</html>

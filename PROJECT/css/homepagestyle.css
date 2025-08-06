@@ -106,7 +106,7 @@ ul {
 
 .second-grid {
   display: grid;
-  grid-template: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
@@ -127,6 +127,7 @@ ul {
   gap: 20px;
   justify-content: space-around;
 }
+
 
 @media screen and (max-width:600px) {
   body {
@@ -182,7 +183,7 @@ ul {
 
   .gridfull {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: auto;
   }
 
   .bottomflex {
