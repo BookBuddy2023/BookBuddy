@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Learning Hub - Book Buddy</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome CSS for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS for maroon color and styling -->
+    <style>
+        :root {
+            --maroon: #800000;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        .bg-maroon {
+            background-color: var(--maroon);
+            color: #fff;
+        }
+        .text-maroon {
+            color: var(--maroon) !important;
+        }
+        .section-heading {
+            font-weight: 700;
+            color: var(--maroon);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .list-group-item {
+            border-color: #ddd;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+        /* Hero section specific styles */
+        .hero-section {
+            background-color: #f8f9fa; /* Light background */
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 3px solid var(--maroon); /* Subtle maroon line */
+        }
+        .hero-section h1 {
+            color: var(--maroon);
+            font-weight: 800; /* Extra bold */
+        }
+        .hero-section p.lead {
+            color: #555; /* Darker text for readability */
+        }
+        /* Navbar custom styles */
+        .nav-link.text-maroon:hover {
+            color: #b30000 !important; /* A slightly darker maroon on hover */
+        }
+        .course-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,.075);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 1rem 2rem rgba(0,0,0,.125) !important;
+        }
+        .course-card .card-header {
+            background-color: var(--maroon);
+            color: white;
+            font-weight: bold;
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+        }
+        .course-card .card-body {
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand me-auto" href="../index.html">
+                <img src="https://placehold.co/150x40/800000/ffffff?text=Book+Buddy+Logo" alt="Book Buddy Logo" class="img-fluid rounded" style="max-height: 40px;">
+            </a>
+
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="d-flex flex-column flex-lg-row ms-auto align-items-center">
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="../index.html">Home</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./about.html">About Us</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./schoolwork.html">School Work</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./beyondschool.html">Beyond School</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./photogallery.html">Photo Gallery</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./contactus.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="text-center hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Professional Learning Hub</h1>
+            <p class="lead">Elevate your career with targeted learning resources for banking, business analysis, and more.</p>
+        </div>
+    </header>
+
+    <!-- Main Content - Professional Learning Categories -->
+    <div class="container my-5">
+        <h2 class="section-heading">Our Specialized Programs</h2>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
+
+            <!-- Banking & Finance Track -->
+            <div class="col d-flex">
+                <div class="card course-card h-100">
+                    <div class="card-header">
+                        <i class="fas fa-money-check-alt me-2"></i> Banking & Finance
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-maroon">Essential Skills for Bankers</h5>
+                        <p class="card-text">Dive into modules on financial literacy, market analysis, regulatory compliance, and customer relationship management. Perfect for aspiring and current banking professionals.</p>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Introduction to Core Banking
+                                <span class="badge bg-maroon rounded-pill">Course</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Risk Management Fundamentals
+                                <span class="badge bg-maroon rounded-pill">Webinar</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Digital Banking Trends
+                                <span class="badge bg-maroon rounded-pill">Article</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-maroon mt-auto">Explore Banking Resources</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Analysis Track -->
+            <div class="col d-flex">
+                <div class="card course-card h-100">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line me-2"></i> Business Analysis
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-maroon">Mastering Business Analysis</h5>
+                        <p class="card-text">Learn about requirements gathering, process modeling, data analysis, and effective stakeholder communication. Ideal for Business Analysts and project managers.</p>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Requirements Elicitation Techniques
+                                <span class="badge bg-maroon rounded-pill">Course</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                BPMN Process Modeling
+                                <span class="badge bg-maroon rounded-pill">Guide</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Agile BA Principles
+                                <span class="badge bg-maroon rounded-pill">Webinar</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-maroon mt-auto">Explore BA Resources</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add more professional tracks as needed -->
+            <div class="col-12 text-center mt-4">
+                <p class="lead">Looking for more? Contact us for custom learning paths!</p>
+                <a href="./contactus.html" class="btn btn-outline-dark text-maroon border-maroon">Get in Touch</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Font Awesome (for icons) and Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

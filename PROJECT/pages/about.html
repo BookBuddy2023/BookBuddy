@@ -1,54 +1,231 @@
-<html>
-    <head>
-        <title>
-            About Book Buddy
-        </title>
-        <style>
+</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Book Buddy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --maroon: #800000;
+        }
 
-        </style>
-    </head>
-    <body>
-          <header>
-            BOOK BUDDY LENDING LIBRARY
-            <nav>
-     <a href="../index.html"><li>Home</li></a>
-    <a href="./about.html"><li>About Us</li></a>
-           <a href="./schoolwork.html"><li>School Work</li></a>
-           <a href="./beyondschool.html"><li> Beyond School</li></a>
-           <a href="./photogallery.html"><li> Photo Gallery</li></a>
-           <a href="./contactus.html"><li>Contact Us</li></a>
-            </nav>
-        </header>
-        <header>
-            About us 
-        </header>
-        <div>
-            <p>
-Welcome to Book Buddy Lending Library — not just a library, but your new favorite hangout for stories, learning, and all things wonderfully brainy!
-We are a little corner of the world where books talk (okay, not really—but they feel like they do), ideas spark, and learning becomes an adventure, not a chore.
-</p>
-<h1>What Makes Us Awesome</h1>
-<h2>Book Buddy Library</h2>
-<p>Your reading BFF is here. From magical tales to fact-packed wonders, borrow your favorites and discover new ones.</p>
-<h3>School Stuff , But Way More Fun</h3>
-<p>Worksheets? Yes.<br>
-Quizzes? Absolutely.<br>
-Cool learning videos that make things actually make sense? You got it.<br>
-Dive into our Academics Zone and get ahead without the yawns.<br> </p>
-<h3>Beyond the School Bell</h3>
-Want to brush up on your English or become a math ninja?<br>
-Our Skill Builder section is full of brain-boosting challenges and creative learning beyond textbooks.<br>
-<h3>Gallery of Giggles and Great Moments</h3>
-Peek into our world — photos, videos, happy faces, and moments we've shared learning, laughing, and growing together.<br>
-<h3>
-Our Mission
-</h3>
-To help kids fall in love with reading, learning, and exploring — not because they have to, but because they want to.<br>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
 
-We believe learning should feel like discovery, not duty. Whether you're here to ace a quiz or find your next favorite book, you're in the right place.<br>
+        .bg-maroon {
+            background-color: var(--maroon);
+            color: #fff;
+        }
 
-So go on. Click, scroll, explore. Your next great idea might be one page away.</p>
+        .header-bg {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
 
+        .section-heading {
+            font-weight: 700;
+            color: var(--maroon);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+        .text-maroon {
+            color: var(--maroon);
+        }
+
+        .btn-maroon {
+            background-color: var(--maroon);
+            border-color: var(--maroon);
+            color: #fff;
+        }
+
+        .btn-maroon:hover {
+            background-color: #660000;
+            border-color: #660000;
+            color: #fff;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            /* 16:9 Aspect Ratio */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand me-auto" href="../index.html">
+            <img src="../asset/images/bookbuddy logo.JPG" alt="Book Buddy Logo" class="img-fluid rounded" width="60px" height="60px;">
+        </a>
+
+        <!-- Toggler for mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Links - Now without <ul><li> -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Using d-flex and flex-lg-row for spacing the links directly -->
+            <div class="d-flex flex-column flex-lg-row ms-auto align-items-center">
+                <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="../index.html">Home</a>
+                <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./about.html">About Us</a>
+                <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./schoolwork.html">School Work</a>
+                <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./beyondschool.html">Beyond School</a>
+                <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./photogallery.html">Photo Gallery</a>
+                <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./contactus.html">Contact Us</a>
+            </div>
         </div>
-    </body>
+    </div>
+</nav>
+
+<!-- Bootstrap JS (Corrected integrity attribute) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <header class="bg-maroon text-center text-white header-bg">
+        <div class="container">
+
+            <h1 class="display-3 fw-bold">Bringing Stories to Life, One Kid at a Time</h1>
+            <p class="lead">With over 2.5 years of experience, we believe in the magic of storytelling.</p>
+        </div>
+    </header>
+
+    <div class="container my-5">
+
+        <section class="mb-5">
+            <h2 class="section-heading">Our Story</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <p class="fs-5">
+                        They say storytelling is a powerful tool in the corporate world, capable of building great
+                        companies and inspiring teams. But what about our children? For a child, a story isn't just a
+                        tale; it's a world to explore, a lesson to be learned, and a mirror for their own lives. We at
+                        **Book Buddy** have spent the last 2.5 years using the magic of stories to connect with kids,
+                        helping them bridge the gap between their school education and the limitless world beyond the
+                        classroom. We're here to prepare them for life, not just for tests.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/600x400.png?text=Our+Library+Image"
+                        class="img-fluid rounded shadow-lg" alt="Image of the Book Buddy Library">
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="mb-5">
+            <h2 class="section-heading">Our Journey from a Small Library</h2>
+            <div class="video-container rounded shadow-lg">
+                <iframe src="https://www.youtube.com/embed/your_video_id" title="Book Buddy Journey"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="text-center mt-3">
+                <p class="text-muted">Watch how we started out and evolved over the past 2.5 years.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="mb-5">
+            <h2 class="section-heading">Why Online?</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <p class="fs-5">
+                        Our physical library has been a haven for many, but we realized its magic needed to reach
+                        further. This website is our digital library—a space designed to extend our reach to every
+                        child, especially those who can't experience our offline setup. It’s a place where kids can
+                        access stories, quizzes, and downloadable worksheets to enhance their academic learning, all
+                        from the comfort of their homes. This is our way of making sure no child misses out on the joy
+                        of learning.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="mb-5">
+            <h2 class="section-heading">A Message from the Founder</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <p class="text-center fst-italic">
+                        "At Book Buddy, our collective dream is simple: learning should be loved. We believe every child deserves the guidance and exposure we wished for at their age. We're building a vibrant community where curiosity thrives, showing kids a world limitless beyond classrooms, relatives, or neighbors. Age is no barrier here—from stories to Python, we empower young minds to create and learn anything. We invite you to join this journey!Together, we're not just a library; we're a launchpad for lifelong wonder and growth.""
+                    </p>
+                    <p class="text-end fw-bold text-maroon mt-3">- The Founder</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="mb-5">
+            <h2 class="section-heading">What Our Community Says</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-text flex-grow-1">"My daughter's love for reading has grown so much since she
+                                joined Book Buddy. The stories and quizzes have made learning so much fun!"</p>
+                            <footer class="blockquote-footer mt-auto">A Happy Parent</footer>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-text flex-grow-1">"Book Buddy helped me get an A on my history exam because
+                                the stories made it easy to remember all the facts. Thank you!"</p>
+                            <footer class="blockquote-footer mt-auto">A Smart Kid</footer>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-text flex-grow-1">"I love that my son is learning so much more than just his
+                                school syllabus. The workshops are amazing!"</p>
+                            <footer class="blockquote-footer mt-auto">Another Happy Parent</footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+</body>
+
 </html>

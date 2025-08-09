@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytical & Logical Thinking - Book Buddy</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome CSS for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS for maroon color and styling -->
+    <style>
+        :root {
+            --maroon: #800000;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        .bg-maroon {
+            background-color: var(--maroon);
+            color: #fff;
+        }
+        .text-maroon {
+            color: var(--maroon) !important;
+        }
+        .section-heading {
+            font-weight: 700;
+            color: var(--maroon);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .accordion-button:not(.collapsed) {
+            color: #fff;
+            background-color: var(--maroon);
+            border-color: var(--maroon);
+        }
+        .accordion-button:not(.collapsed)::after {
+            filter: brightness(0) invert(1);
+        }
+        .list-group-item {
+            border-color: #ddd;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+        /* Hero section specific styles */
+        .hero-section {
+            background-color: #f8f9fa; /* Light background */
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 3px solid var(--maroon); /* Subtle maroon line */
+        }
+        .hero-section h1 {
+            color: var(--maroon);
+            font-weight: 800; /* Extra bold */
+        }
+        .hero-section p.lead {
+            color: #555; /* Darker text for readability */
+        }
+        /* Navbar custom styles */
+        .nav-link.text-maroon:hover {
+            color: #b30000 !important; /* A slightly darker maroon on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand me-auto" href="../index.html">
+                <img src="https://placehold.co/150x40/800000/ffffff?text=Book+Buddy+Logo" alt="Book Buddy Logo" class="img-fluid rounded" style="max-height: 40px;">
+            </a>
+
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="d-flex flex-column flex-lg-row ms-auto align-items-center">
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="../index.html">Home</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./about.html">About Us</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./schoolwork.html">School Work</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./beyondschool.html">Beyond School</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./photogallery.html">Photo Gallery</a>
+                    <a class="nav-link text-maroon fw-bold mx-lg-3 my-2 my-lg-0" href="./contactus.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="text-center hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Sharpen Your Mind: Analytical & Logical Thinking</h1>
+            <p class="lead">Engage in mind-bending puzzles and critical thinking exercises to boost your problem-solving abilities.</p>
+        </div>
+    </header>
+
+    <!-- Main Content - Analytical & Logical Thinking Levels -->
+    <div class="container my-5">
+        <h2 class="section-heading">Choose Your Level</h2>
+
+        <div class="accordion" id="analyticalAccordion">
+            <!-- Beginner Level -->
+            <div class="accordion-item shadow-sm mb-3">
+                <h2 class="accordion-header" id="analyticalHeadingBeginner">
+                    <button class="accordion-button fs-5 text-center d-flex justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#analyticalCollapseBeginner" aria-expanded="true" aria-controls="analyticalCollapseBeginner">
+                        Beginner (Till Grade 5)
+                    </button>
+                </h2>
+                <div id="analyticalCollapseBeginner" class="accordion-collapse collapse show" aria-labelledby="analyticalHeadingBeginner" data-bs-parent="#analyticalAccordion">
+                    <div class="accordion-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="#" class="text-maroon fw-bold text-decoration-none">Pattern Recognition Puzzles (Grades 1-3)</a>
+                                <span class="d-block text-muted small">Simple visual and number pattern activities.</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#" class="text-maroon fw-bold text-decoration-none">Odd One Out & Category Games (Grades 3-5)</a>
+                                <span class="d-block text-muted small">Identifying differences and grouping.</span>
+                            </li>
+                            <!-- Add more Beginner resources here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate Level -->
+            <div class="accordion-item shadow-sm mb-3">
+                <h2 class="accordion-header" id="analyticalHeadingIntermediate">
+                    <button class="accordion-button collapsed fs-5 text-center d-flex justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#analyticalCollapseIntermediate" aria-expanded="false" aria-controls="analyticalCollapseIntermediate">
+                        Intermediate (Middle School: Grades 6-8)
+                    </button>
+                </h2>
+                <div id="analyticalCollapseIntermediate" class="accordion-collapse collapse" aria-labelledby="analyticalHeadingIntermediate" data-bs-parent="#analyticalAccordion">
+                    <div class="accordion-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="#" class="text-maroon fw-bold text-decoration-none">Critical Thinking Scenarios (Grade 6)</a>
+                                <span class="d-block text-muted small">Analyzing situations and making reasoned choices.</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#" class="text-maroon fw-bold text-decoration-none">Deductive Reasoning Puzzles (Grades 7-8)</a>
+                                <span class="d-block text-muted small">Solving logic grids and word problems.</span>
+                            </li>
+                            <!-- Add more Intermediate resources here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Level -->
+            <div class="accordion-item shadow-sm mb-3">
+                <h2 class="accordion-header" id="analyticalHeadingAdvanced">
+                    <button class="accordion-button collapsed fs-5 text-center d-flex justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#analyticalCollapseAdvanced" aria-expanded="false" aria-controls="analyticalCollapseAdvanced">
+                        Advanced (Higher Secondary: Grades 9-12)
+                    </button>
+                </h2>
+                <div id="analyticalCollapseAdvanced" class="accordion-collapse collapse" aria-labelledby="analyticalHeadingAdvanced" data-bs-parent="#analyticalAccordion">
+                    <div class="accordion-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="#" class="text-maroon fw-bold text-decoration-none">Complex Problem-Solving Challenges (Grade 9-10)</a>
+                                <span class="d-block text-muted small">Multi-step problems requiring deep analysis.</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#" class="text-maroon fw-bold text-decoration-none">Introduction to Debating & Argumentation (Grades 11-12)</a>
+                                <span class="d-block text-muted small">Structuring logical arguments and counter-arguments.</span>
+                            </li>
+                            <!-- Add more Advanced resources here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Font Awesome (for icons) and Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
